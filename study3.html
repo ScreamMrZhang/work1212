@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        @property --range {
+            syntax: "<percentage>";
+            inherits: true;
+            initial-value: 0%;
+        }
+        :root{
+            --range:0%;
+            --x:0;
+            --y:0;
+        }
+        .baz{
+            height: 100vh;
+            width: 100vw;
+            background-image: linear-gradient(to right,red 0%,red var(--range),black var(--range),black 100%);
+            /*animation-name: swiper;*/
+            animation-duration: 3s;
+            animation-timing-function: ease-in-out;
+            animation-fill-mode: forwards;
+
+        }
+        @keyframes swiper {
+            to{
+                --range: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="baz">
+    <button>start</button>
+</div>
+
+</body>
+<script>
+    var button = document.querySelector("button");
+    var baz = document.querySelector(".baz");
+    button.addEventListener("click",function () {
+        baz.style.animationName="swiper";
+    })
+</script>
+</html>

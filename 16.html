@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        @property --primaryColor {
+            /*当前变量可接受的css类型*/
+            syntax: "<color>";
+            initial-value: black;
+            inherits: true;
+        }
+      /*css变量的定义*/
+      /*css变量可以定义在任何元素的规则集合中*/
+      /*全局变量是定义在root*/
+      :root{
+          /*变量是一种特殊的css属性 这个属性可以使用animation*/
+        --primaryColor:violet;
+        --textColor:white;
+
+      }
+      html{
+        --primaryColor:red;
+
+      }
+      body{
+          --primaryColor: 1px;
+      }
+      .bar{
+        width: 100px;
+        height: 100px;
+
+        background-color: orange;
+        /*animation: A1 1s cubic-bezier(.05,.71,.14,.99) 0 1;*/
+        /*名称*/
+        animation-name: A1;
+        /*持续时间*/
+        animation-duration: 2s;
+        /*过度效果*/
+        animation-timing-function: ease-in-out;
+        /*次数*/
+        animation-iteration-count: infinite;
+        /*运动结束后停止的位置*/
+        animation-fill-mode: forwards;
+      }
+      @keyframes A1 {
+        0%{
+          width: 100px;
+          height: 100px;
+          border-radius: 0;
+          background-color: orange;
+        }
+        50%{
+          width: 200px;
+          height: 200px;
+          border-radius: 100px;
+          background-color: violet;
+        }
+
+      }
+
+      .foo{
+        width: 400px;
+        height: 400px;
+        background-color: var(--primaryColor);
+        color: var(--textColor);
+        /*background-image: linear-gradient(to right,red 0%,red 50%,black 50%,black 100%);*/
+        /*animation-name: linearGradient;*/
+        /*animation-duration: 2s;*/
+
+      }
+      @keyframes linearGradient {
+        from{
+          background-image: linear-gradient(to right,red 0%,red 0%,black 0%,black 100%);
+        }
+        to{
+          background-image: linear-gradient(to right,red 0%,red 100%,black 100%,black 100%);
+        }
+      }
+
+    </style>
+</head>
+<body>
+<!--<div class="bar"></div>-->
+<div class="foo">Foo</div>
+</body>
+</html>

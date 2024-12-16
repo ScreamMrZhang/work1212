@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./study7.css">
+</head>
+<body>
+<div class="bar">
+    唤起弹窗
+</div>
+<div class="bar-inner">
+    <span>我是弹窗</span>
+    <button>×</button>
+</div>
+</body>
+<script>
+    var bar = document.querySelector(".bar");
+    var barInner = document.querySelector(".bar-inner");
+    var btn = document.querySelector("button");
+
+    bar.addEventListener("click",function () {
+        // console.log(11111)
+        barInner.style.animationName="identifier";
+    })
+    btn.addEventListener("click",function () {
+        barInner.style.animationName="identifier_1";
+    })
+</script>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        @property --range {
+            syntax: "<percentage>";
+            inherits: true;
+            initial-value: 0%;
+        }
+        :root{
+            --range:0%;
+            --x:0px;
+            --y:0px;
+        }
+        .baz{
+            height: 100vh;
+            width: 100vw;
+            background-image: radial-gradient(circle at right,red 0%,red var(--range),black var(--range),black 100%);
+            /*animation-name: swiper;*/
+            animation-duration: 2s;
+            animation-timing-function: ease-in-out;
+            animation-fill-mode: forwards;
+            position: relative;
+
+        }
+        @keyframes swiper {
+            to{
+                --range: 100%;
+            }
+        }
+        @keyframes swiperB {
+            to{
+                --range: 0%;
+            }
+        }
+        button{
+            position: absolute;
+            right: 10px;
+            top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="baz">
+    <button>start</button>
+</div>
+
+</body>
+<script>
+    var button = document.querySelector("button");
+    var baz = document.querySelector(".baz");
+    var pos = button.getBoundingClientRect();
+    var flag =true
+    button.addEventListener("click",function () {
+
+        if (flag){
+            baz.style.backgroundImage=`radial-gradient(circle at ${pos.x}px ${pos.y}px,red 0%,red var(--range),black 0%,black 100%)`;
+            baz.style.animationName="swiper";
+            flag=false;
+        }else {
+            baz.style.backgroundImage=`radial-gradient(circle at ${pos.x}px ${pos.y}px,red 0%,red var(--range),black 0%,black 100%)`;
+            baz.style.animationName="swiperB";
+            flag=true;
+        }
+
+
+    })
+</script>
+</html>

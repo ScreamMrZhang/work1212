@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>验证码</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        input {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+        }
+        .input_div{
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            border: 1px solid #555555;
+            border-radius: 4px;
+            font-size: 16px;
+            line-height: 50px;
+            display: inline-block;
+        }
+
+        #codeValue{
+            width: 60px;
+            height: 20px;
+        }
+
+        .content {
+            width: 500px;
+            height: 500px;
+            position: absolute;
+            text-align: center;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .interval {
+            content: "·";
+            width: 50px;
+            height: 50px;
+            display: inline-block;
+        }
+
+        .focus-style {
+            width: 50px;
+            height: 50px;
+            border: 2px solid #ccc;
+            margin-bottom: 10px;
+            transition: border-color 0.3s;
+        }
+
+        .focus-style:focus,
+        .input-style:focus {
+            border-color: #4caf50;
+        }
+    </style>
+</head>
+<body>
+<div class="content">
+    <!--    <input id="text1" type="text">-->
+    <!--    <input id="text2" type="text">-->
+    <!--    <input id="text3" type="text">-->
+    <!--    <div class="interval">·</div>-->
+    <!--    <input id="text4" type="text">-->
+    <!--    <input id="text5" type="text">-->
+    <!--    <input id="text6" type="text">-->
+    <div id="div1" class="input_div focus-style" contenteditable="true"></div>
+    <div id="div2" class="input_div focus-style" contenteditable="true"></div>
+    <div id="div3" class="input_div" contenteditable="true"></div>
+    <div class="interval">·</div>
+    <div id="div4" class="input_div focus-style" contenteditable="true"></div>
+    <div id="div5" class="input_div focus-style" contenteditable="true"></div>
+    <div id="div6" class="input_div focus-style" contenteditable="true"></div>
+    <br><input type="text" id="codeValue" maxlength="6" class="input-style">
+</div>
+
+</body>
+<script>
+    // var text1 = document.querySelector("#text1");
+    // var text2 = document.querySelector("#text2");
+    // var text3 = document.querySelector("#text3");
+    // var text4 = document.querySelector("#text4");
+    // var text5 = document.querySelector("#text5");
+    // var text6 = document.querySelector("#text6");
+    //
+    // text1.addEventListener("input", focusNext);
+    // text2.addEventListener("input", focusNext);
+    // text3.addEventListener("input", focusNext);
+    // text4.addEventListener("input", focusNext);
+    // text5.addEventListener("input", focusNext);
+    // text6.addEventListener("input", focusNext);
+
+    // var inputs = document.querySelectorAll("input");
+    // for (let i = 0; i < inputs.length; i++) {
+    //     inputs[i].addEventListener("input", focusNext);
+    // }
+    // var range="0123456789"
+    // function focusNext() {
+    //     if (-1 === range.indexOf(this.value)) {
+    //         this.value="";
+    //         return;
+    //     }
+    //     if (this.value !== "") {
+    //         if (this===text3){
+    //             text4.focus();
+    //         }else{
+    //             if(this!==text6)
+    //                 this.nextElementSibling.focus();
+    //         }
+    //     }else {
+    //         if (this===text4){
+    //             text3.focus();
+    //         }else{
+    //             // console.log(this!==text1)
+    //             if(this!==text1)
+    //                 this.previousElementSibling.focus();
+    //         }
+    //     }
+    //
+    // }
+
+    // for (let i = 0; i < inputs.length; i++) {
+    //     var input = inputs[i];
+    //     input.addEventListener("input", focusNext(i));
+    // }
+
+    var input = document.querySelector("input");
+    var divInputs = document.querySelectorAll(".input_div");
+    input.addEventListener("input",changeDiv)
+    function changeDiv() {
+        var inputValue = input.value;
+        for (let i = 0; i <6 ; i++) {
+            if (i>=inputValue.length){
+                divInputs[i].innerHTML="";
+            }else{
+                divInputs[i].innerHTML=inputValue[i];
+            }
+        }
+    }
+
+    for (let i = 0; i < divInputs.length; i++) {
+        divInputs[i].addEventListener("input",focusOnInput)
+    }
+    function focusOnInput() {
+        // input.focus()
+    }
+
+
+
+
+
+
+</script>
+</html>

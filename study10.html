@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #calendar {
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-bottom: 1px solid #ccc;
+        }
+
+        #calendar-header button {
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #calendar-days,
+        #calendar-dates {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            padding: 10px;
+        }
+
+        #calendar-days div {
+            font-weight: bold;
+            color: #555;
+        }
+
+        #calendar-dates div {
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background-color 0.2s;
+        }
+
+        #calendar-dates div:hover {
+            background-color: #ddd;
+        }
+
+        #calendar-dates div.selected {
+            background-color: #007BFF;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+<div id="calendar">
+    <div id="calendar-header">
+        <button id="prev-month">←</button>
+        <span id="month-year"></span>
+        <button id="next-month">→</button>
+    </div>
+    <div id="calendar-days">
+        <div>Sun</div>
+        <div>Mon</div>
+        <div>Tue</div>
+        <div>Wed</div>
+        <div>Thu</div>
+        <div>Fri</div>
+        <div>Sat</div>
+    </div>
+    <div id="calendar-dates"></div>
+</div>
+
+</body>
+
+<script>
+    const calendar = {
+        currentDate: new Date(),
+        selectedDate: null,
+    };
+
+    function renderCalendar() {
+        const monthYear = document.getElementById("month-year");
+        const calendarDates = document.getElementById("calendar-dates");
+        const firstDay = new Date(calendar.currentDate.getFullYear(), calendar.currentDate.getMonth(), 1);
+        const lastDay = new Date(calendar.currentDate.getFullYear(), calendar.currentDate.getMonth() + 1, 0);
+
+        // Set month and year header
+        const options = { year: "numeric", month: "long" };
+        monthYear.textContent = calendar.currentDate.toLocaleDateString("en-US", options);
+
+        // Clear previous dates
+        calendarDates.innerHTML = "";
+
+        // Add padding days for the first row
+        for (let i = 0; i < firstDay.getDay(); i++) {
+            const emptyDiv = document.createElement("div");
+            calendarDates.appendChild(emptyDiv);
+        }
+
+        // Render all days of the current month
+        for (let day = 1; day <= lastDay.getDate(); day++) {
+            const dateDiv = document.createElement("div");
+            dateDiv.textContent = day;
+
+            // Highlight selected date
+            if (
+                calendar.selectedDate &&
+                calendar.selectedDate.getFullYear() === calendar.currentDate.getFullYear() &&
+                calendar.selectedDate.getMonth() === calendar.currentDate.getMonth() &&
+                calendar.selectedDate.getDate() === day
+            ) {
+                dateDiv.classList.add("selected");
+            }
+
+            // Add click event to select date
+            dateDiv.addEventListener("click", () => {
+                calendar.selectedDate = new Date(calendar.currentDate.getFullYear(), calendar.currentDate.getMonth(), day);
+                renderCalendar();
+            });
+
+            calendarDates.appendChild(dateDiv);
+        }
+    }
+
+    // Handle month navigation
+    document.getElementById("prev-month").addEventListener("click", () => {
+        calendar.currentDate.setMonth(calendar.currentDate.getMonth() - 1);
+        renderCalendar();
+    });
+
+    document.getElementById("next-month").addEventListener("click", () => {
+        calendar.currentDate.setMonth(calendar.currentDate.getMonth() + 1);
+        renderCalendar();
+    });
+
+    // Initial render
+    renderCalendar();
+
+</script>
+</html>

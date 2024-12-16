@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div style="width: 100px;height: 100px;background:linear-gradient(red,yellow)"></div>
+<a href="#123">123</a>
+<a href="#456">456</a>
+<a href="#789">789</a>
+<button class="reload-btn">刷新</button>
+<button class="replace-btn">跳转到百度</button>
+</body>
+<script>
+    // 一个特殊的对象（它的取值是由函数的执行决定的 this只出现在函数中）
+    function f() {
+        console.log(1);
+        console.log(this);//代指window
+    }
+
+    // 当对象的属性值是一个函数的时候 这个属性也可以称为方法
+    // fn既是o对象的方法 也是o对象的属性
+    // 方法是特殊属性的别称 表明该属性可以被执行
+    var o = {
+        fn: function () {
+            console.log(2);
+            console.log(this);//代指o
+        },
+        a:1
+    }
+
+    var div = document.querySelector("div");
+    div.onclick=function () {
+        console.log(3);
+        console.log(this);//代指div
+    }
+
+    //一般情况下，函数执行时的this指向执行表达式中离函数执行最近的主体
+    window.f();//this->window
+    window.o.fn();//this->o
+    window.div.click();//this->div
+
+    var o1 ={
+        foo:function () {
+            console.log(this);
+        }
+    }
+    var bar= o1.foo;
+
+    o1.foo();
+    bar();
+
+    //定时器的回调函数this 指向window
+    //延时器的回调函数this 指向window
+    //时间处理函数中的this 指向事件被绑定的主体
+    div.addEventListener("click",function () {
+        console.log(this);
+    })//指向div
+
+
+    //setTimeout setInterval 函数执行时this指代window
+    //事件处理中的this指向事件绑定主体
+    //一般情况下，函数执行时的this指向执行表达式中离函数执行最近的主体
+
+
+    //通过location对象获取如下信息
+    console.log("协议",location.protocol);
+    console.log("主机",location.host);
+    console.log("端口",location.port);
+    console.log("路径",location.pathname);
+    console.log("参数",location.search);
+    console.log("哈希",location.hash);
+
+    //监听
+    window.onhashchange=function () {
+        console.log("哈希改变了");
+    }
+
+    //处理路径参数
+    function formatQueryString() {
+        var res={};
+        var search = location.search.replace(/^\?/,'');
+        var tempArr = search.split('&');
+        for (let i = 0; i < tempArr.length; i++) {
+            var strings = tempArr[i].split("=");
+            res[strings[0]]=strings[1];
+        }
+        return res;
+    }
+
+    console.log(formatQueryString())
+
+    var reloadBtn = document.querySelector(".reload-btn");
+    var replaceBtn = document.querySelector(".replace-btn");
+
+    //重新加载当前页面
+    reloadBtn.addEventListener("click",function () {
+        location.reload();
+    })
+
+    //跳转页面
+    replaceBtn.addEventListener("click",function () {
+        location.replace("https://www.baidu.com")
+    })
+
+    //历史记录window.history
+    //前进 history.forward() 前进一个页面
+    //后退 history.back() 后退一个页面
+    //a.html -> b.html -> c.html -> d.html
+    //go  history.go(num) 负数回退，正数向前history.forward()=history.go(1)  back=go(-1)
+
+
+    document.URL
+    location.href
+    window.origin
+
+
+</script>
+</html>

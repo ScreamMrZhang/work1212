@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./study4.css">
+</head>
+<body>
+
+</body>
+<script>
+    var isDark =true;
+    document.body.addEventListener("click",function (e) {
+        this.style.setProperty("--x",e.x+"px");
+        this.style.setProperty("--y",e.y+"px");
+        if (isDark) {
+            this.style.setProperty("--range","0%");
+            this.style.animationName="identifier";
+
+        }else{
+            this.style.setProperty("--range","100%");
+            this.style.animationName="identifier_1";
+
+        }
+        isDark= !isDark;
+    })
+</script>
+</html>
